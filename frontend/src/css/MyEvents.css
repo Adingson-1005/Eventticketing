@@ -1,0 +1,161 @@
+.myevents-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.myevents-header {
+    margin-bottom: 32px;
+}
+
+.myevents-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+}
+
+.myevents-subtitle {
+    font-size: 15px;
+    color: #666;
+}
+
+.myevents-loading {
+    text-align: center;
+    padding: 60px;
+    font-size: 18px;
+    color: #666;
+}
+
+.myevents-empty {
+    text-align: center;
+    padding: 60px;
+    color: #666;
+}
+
+.myevents-browse-btn {
+    margin-top: 16px;
+    padding: 12px 28px;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.myevents-browse-btn:hover {
+    background-color: #2d2d5e;
+}
+
+.myevents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.myevents-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s;
+}
+
+.myevents-card:hover {
+    transform: translateY(-2px);
+}
+
+.myevents-card-left {
+    flex-shrink: 0;
+}
+
+.myevents-date {
+    background-color: #1a1a2e;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 56px;
+}
+
+.date-month {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a0c4ff;
+}
+
+.date-day {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.myevents-card-body {
+    flex: 1;
+}
+
+.myevents-event-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+.myevents-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #666;
+}
+
+.myevents-card-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.myevents-view-btn {
+    padding: 8px 20px;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.myevents-view-btn:hover {
+    background-color: #2d2d5e;
+}
+
+.myevents-cancel-btn {
+    padding: 8px 20px;
+    background-color: white;
+    color: #e63946;
+    border: 1px solid #e63946;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.myevents-cancel-btn:hover {
+    background-color: #ffe0e0;
+}

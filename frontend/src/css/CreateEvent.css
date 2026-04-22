@@ -1,0 +1,134 @@
+.create-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.create-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.create-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+}
+
+.create-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.create-error {
+    background-color: #ffe0e0;
+    color: #cc0000;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.create-form .form-group {
+    margin-bottom: 20px;
+}
+
+.create-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+.create-form input,
+.create-form textarea,
+.create-form select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.create-form input:focus,
+.create-form textarea:focus,
+.create-form select:focus {
+    outline: none;
+    border-color: #1a1a2e;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-checkbox {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-checkbox input {
+    width: auto !important;
+    margin: 0;
+}
+
+.form-checkbox label {
+    margin: 0 !important;
+    font-size: 15px !important;
+}
+
+.create-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.create-btn-cancel {
+    flex: 1;
+    padding: 12px;
+    background: white;
+    color: #1a1a2e;
+    border: 2px solid #1a1a2e;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.create-btn-cancel:hover {
+    background: #f0f0f0;
+}
+
+.create-btn-submit {
+    flex: 2;
+    padding: 12px;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.create-btn-submit:hover {
+    background-color: #2d2d5e;
+}
+
+.create-btn-submit:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}

@@ -1,0 +1,210 @@
+.detail-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.detail-back {
+    background: none;
+    border: none;
+    color: #1a1a2e;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.detail-back:hover {
+    text-decoration: underline;
+}
+
+.detail-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.detail-top {
+    background: #1a1a2e;
+    padding: 36px;
+    color: white;
+}
+
+.detail-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.detail-category {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.detail-type {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.detail-type.free {
+    background-color: #e6f4ea;
+    color: #2d7a3a;
+}
+
+.detail-type.paid {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.detail-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.detail-host {
+    color: #a0c4ff;
+    font-size: 15px;
+    margin: 0;
+}
+
+.detail-body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    padding: 36px;
+}
+
+.detail-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+}
+
+.detail-description {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.detail-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.detail-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #444;
+}
+
+.meta-icon {
+    font-size: 18px;
+}
+
+.rsvp-card {
+    background: #f8f9ff;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid #e0e4ff;
+    position: sticky;
+    top: 20px;
+}
+
+.rsvp-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+.rsvp-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+
+.rsvp-message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.rsvp-message.success {
+    background-color: #e6f4ea;
+    color: #2d7a3a;
+}
+
+.rsvp-message.error {
+    background-color: #ffe0e0;
+    color: #cc0000;
+}
+
+.ticket-code {
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.rsvp-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 12px;
+}
+
+.rsvp-btn:hover {
+    background-color: #2d2d5e;
+}
+
+.rsvp-btn:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+.rsvp-login-hint {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
+
+.rsvp-login-hint span {
+    color: #1a1a2e;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.detail-loading {
+    text-align: center;
+    padding: 60px;
+    font-size: 18px;
+    color: #666;
+}
+.rsvp-btn.registered {
+    background-color: #2d7a3a;
+    cursor: not-allowed;
+}
