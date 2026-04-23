@@ -9,6 +9,7 @@ import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
 import MyEvents from './pages/MyEvents';
 import Navbar from './components/Navbar';
+import { PrivateRoute, PublicRoute } from './components/ProtectedRoute';
 
 function Layout({ children }) {
     return (
@@ -25,16 +26,38 @@ function App() {
     return (
         <Router>
             <Routes>
-                {/* No navbar */}
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                {/* Public only — redirect to /home if already logged in */}
+                <Route path="/" element={
+                    <PublicRoute><LandingPage /></PublicRoute>
+                } />
+                <Route path="/login" element={
+                    <PublicRoute><Login /></PublicRoute>
+                } />
+                <Route path="/register" element={
+                    <PublicRoute><Register /></PublicRoute>
+                } />
 
-                {/* With navbar */}
-                <Route path="/home" element={<Layout><Home /></Layout>} />
-                <Route path="/events/:id" element={<Layout><EventDetail /></Layout>} />
-                <Route path="/create-event" element={<Layout><CreateEvent /></Layout>} />
-                <Route path="/my-events" element={<Layout><MyEvents /></Layout>} />
+                {/* Private only — redirect to /login if not logged in */}
+                <Route path="/home" element={
+                    <PrivateRoute>
+                        <Layout><Home /></Layout>
+                    </PrivateRoute>
+                } />
+                <Route path="/events/:id" element={
+                    <PrivateRoute>
+                        <Layout><EventDetail /></Layout>
+                    </PrivateRoute>
+                } />
+                <Route path="/create-event" element={
+                    <PrivateRoute>
+                        <Layout><CreateEvent /></Layout>
+                    </PrivateRoute>
+                } />
+                <Route path="/my-events" element={
+                    <PrivateRoute>
+                        <Layout><MyEvents /></Layout>
+                    </PrivateRoute>
+                } />
             </Routes>
         </Router>
     );
