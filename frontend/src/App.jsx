@@ -15,7 +15,10 @@ function Layout({ children }) {
     return (
         <>
             <Navbar />
-            <div style={{ padding: '20px' }}>
+            <div style={{ 
+                minHeight: '100vh',
+                background: 'linear-gradient(180deg, #010311 0%, #000000 21%)'
+            }}>
                 {children}
             </div>
         </>

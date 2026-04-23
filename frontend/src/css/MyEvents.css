@@ -12,34 +12,36 @@
 .myevents-title {
     font-size: 30px;
     font-weight: 800;
-    color: #1a1a2e;
+    color: white;
     margin-bottom: 6px;
 }
 
 .myevents-subtitle {
     font-size: 15px;
-    color: #666;
+    color: #aaa;
 }
 
 .myevents-loading {
     text-align: center;
     padding: 60px;
     font-size: 18px;
-    color: #666;
+    color: #aaa;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #010311 0%, #000000 21%);
 }
 
 .myevents-empty {
     text-align: center;
     padding: 60px;
-    color: #666;
+    color: #aaa;
 }
 
 .myevents-browse-btn {
     margin-top: 16px;
     padding: 12px 28px;
-    background-color: #1a1a2e;
+    background-color: #262323;
     color: white;
-    border: none;
+    border: 1px solid #444;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
@@ -58,14 +60,14 @@
 }
 
 .myevents-card {
-    background: white;
+    background: #1a1a2e;
     border-radius: 12px;
     padding: 20px 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     gap: 20px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #2d2d5e;
     transition: transform 0.2s;
 }
 
@@ -78,12 +80,13 @@
 }
 
 .myevents-date {
-    background-color: #1a1a2e;
+    background-color: #0d0d1a;
     color: white;
     border-radius: 10px;
     padding: 10px 16px;
     text-align: center;
     min-width: 56px;
+    border: 1px solid #2d2d5e;
 }
 
 .date-month {
@@ -100,6 +103,7 @@
     font-size: 24px;
     font-weight: 800;
     line-height: 1.2;
+    color: white;
 }
 
 .myevents-card-body {
@@ -109,7 +113,7 @@
 .myevents-event-title {
     font-size: 17px;
     font-weight: 700;
-    color: #1a1a2e;
+    color: white;
     margin-bottom: 8px;
 }
 
@@ -118,7 +122,7 @@
     gap: 16px;
     flex-wrap: wrap;
     font-size: 13px;
-    color: #666;
+    color: #888;
 }
 
 .myevents-card-right {
@@ -130,9 +134,9 @@
 
 .myevents-view-btn {
     padding: 8px 20px;
-    background-color: #1a1a2e;
+    background-color: #262323;
     color: white;
-    border: none;
+    border: 1px solid #444;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
@@ -146,9 +150,9 @@
 
 .myevents-cancel-btn {
     padding: 8px 20px;
-    background-color: white;
-    color: #e63946;
-    border: 1px solid #e63946;
+    background-color: transparent;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
@@ -157,5 +161,5 @@
 }
 
 .myevents-cancel-btn:hover {
-    background-color: #ffe0e0;
+    background-color: #3a1a1a;
 }

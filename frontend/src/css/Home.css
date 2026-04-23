@@ -7,44 +7,31 @@
     font-family: 'Inter', sans-serif;
 }
 
-.home-header {
-    margin-bottom: 36px;
-}
-
 .home-title {
     font-size: 32px;
     font-weight: 800;
-    color: #1a1a2e;
+    color: white;
     margin-bottom: 8px;
 }
 
 .home-subtitle {
     font-size: 16px;
-    color: #666;
+    color: #aaa;
 }
 
 .home-loading {
     text-align: center;
     padding: 60px;
     font-size: 18px;
-    color: #666;
+    color: #aaa;
+    background: linear-gradient(180deg, #010311 0%, #000000 21%);
+    min-height: 100vh;
 }
 
 .home-empty {
     text-align: center;
     padding: 60px;
-    color: #666;
-}
-
-.home-create-btn {
-    margin-top: 16px;
-    padding: 12px 28px;
-    background-color: #1a1a2e;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
+    color: #aaa;
 }
 
 .home-grid {
@@ -54,18 +41,18 @@
 }
 
 .event-card {
-    background: white;
+    background: #1a1a2e;
     border-radius: 14px;
     padding: 24px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #2d2d5e;
 }
 
 .event-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 .event-card-header {
@@ -76,8 +63,8 @@
 }
 
 .event-category {
-    background-color: #eef0ff;
-    color: #1a1a2e;
+    background-color: rgba(255,255,255,0.1);
+    color: #a0c4ff;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 12px;
@@ -92,25 +79,25 @@
 }
 
 .event-type.free {
-    background-color: #e6f4ea;
-    color: #2d7a3a;
+    background-color: #1a3a2a;
+    color: #4caf82;
 }
 
 .event-type.paid {
-    background-color: #fff3e0;
-    color: #e65100;
+    background-color: #3a2a10;
+    color: #ffb74d;
 }
 
 .event-title {
     font-size: 20px;
     font-weight: 700;
-    color: #1a1a2e;
+    color: white;
     margin-bottom: 10px;
 }
 
 .event-description {
     font-size: 14px;
-    color: #666;
+    color: #aaa;
     line-height: 1.6;
     margin-bottom: 16px;
 }
@@ -124,16 +111,16 @@
 
 .event-detail {
     font-size: 13px;
-    color: #555;
+    color: #888;
     margin: 0;
 }
 
 .event-card-btn {
     width: 100%;
     padding: 10px;
-    background-color: #1a1a2e;
+    background-color: #262323;
     color: white;
-    border: none;
+    border: 1px solid #444;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
@@ -143,4 +130,15 @@
 
 .event-card-btn:hover {
     background-color: #2d2d5e;
+}
+
+.home-create-btn {
+    margin-top: 16px;
+    padding: 12px 28px;
+    background-color: #262323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
 }

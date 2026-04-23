@@ -6,28 +6,29 @@
 }
 
 .create-card {
-    background: white;
+    background: #1a1a2e;
     border-radius: 16px;
     padding: 40px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    border: 1px solid #2d2d5e;
 }
 
 .create-title {
     font-size: 26px;
     font-weight: 800;
-    color: #1a1a2e;
+    color: white;
     margin-bottom: 6px;
 }
 
 .create-subtitle {
-    color: #666;
+    color: #aaa;
     font-size: 14px;
     margin-bottom: 28px;
 }
 
 .create-error {
-    background-color: #ffe0e0;
-    color: #cc0000;
+    background-color: #3a1a1a;
+    color: #ff6b6b;
     padding: 10px 14px;
     border-radius: 6px;
     margin-bottom: 20px;
@@ -43,7 +44,7 @@
     margin-bottom: 6px;
     font-weight: 500;
     font-size: 14px;
-    color: #333;
+    color: #ccc;
 }
 
 .create-form input,
@@ -51,19 +52,26 @@
 .create-form select {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
     transition: border 0.2s;
     font-family: 'Inter', sans-serif;
+    background-color: #0d0d1a;
+    color: white;
 }
 
 .create-form input:focus,
 .create-form textarea:focus,
 .create-form select:focus {
     outline: none;
-    border-color: #1a1a2e;
+    border-color: #a0c4ff;
+}
+
+.create-form select option {
+    background-color: #1a1a2e;
+    color: white;
 }
 
 .form-row {
@@ -86,6 +94,7 @@
 .form-checkbox label {
     margin: 0 !important;
     font-size: 15px !important;
+    color: #ccc !important;
 }
 
 .create-buttons {
@@ -97,9 +106,9 @@
 .create-btn-cancel {
     flex: 1;
     padding: 12px;
-    background: white;
-    color: #1a1a2e;
-    border: 2px solid #1a1a2e;
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #444;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
@@ -108,15 +117,16 @@
 }
 
 .create-btn-cancel:hover {
-    background: #f0f0f0;
+    background: #2d2d5e;
+    color: white;
 }
 
 .create-btn-submit {
     flex: 2;
     padding: 12px;
-    background-color: #1a1a2e;
+    background-color: #262323;
     color: white;
-    border: none;
+    border: 1px solid #444;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
@@ -129,6 +139,6 @@
 }
 
 .create-btn-submit:disabled {
-    background-color: #aaa;
+    background-color: #333;
     cursor: not-allowed;
 }
