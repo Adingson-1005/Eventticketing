@@ -7,6 +7,7 @@ import '../css/Login.css';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -40,7 +41,7 @@ function Login() {
     return (
         <div className="auth-container">
             <div className="auth-card">
-                <h2 className="auth-title">Login👋</h2>
+                <h2 className="auth-title">Login 👋</h2>
                 <p className="auth-subtitle">Welcome back!</p>
 
                 {error && <div className="auth-error">{error}</div>}
@@ -59,13 +60,22 @@ function Login() {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <input
-                            type="password"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="password-wrapper">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? '🙈' : '👁️'}
+                            </button>
+                        </div>
                     </div>
 
                     <button type="submit" className="auth-btn" disabled={loading}>
