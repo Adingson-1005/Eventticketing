@@ -6,7 +6,7 @@ import '../css/EventDetail.css';
 
 function EventDetail() {
     const { id } = useParams();
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const navigate = useNavigate();
 
     const [event, setEvent] = useState(null);
@@ -25,7 +25,7 @@ function EventDetail() {
     const fetchEvent = async () => {
         try {
             const res = await axios.get(
-                `http://localhost/eventticketing/backend/controllers/EventController.php?action=single&id=${id}`
+                `http://localhost/eventticketing/backend/api/events/${id}`
             );
             if (res.data.success) {
                 setEvent(res.data.event);
@@ -40,10 +40,11 @@ function EventDetail() {
     const checkRegistration = async () => {
         try {
             const res = await axios.get(
-                `http://localhost/eventticketing/backend/controllers/RegistrationController.php?action=my_events&user_id=${user.id}`
+                `http://localhost/eventticketing/backend/api/tickets/user/${user.id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             if (res.data.success) {
-                const registered = res.data.events.some(
+                const registered = res.data.tickets.some(
                     e => String(e.event_id) === String(id)
                 );
                 setAlreadyRegistered(registered);
@@ -64,8 +65,9 @@ function EventDetail() {
 
         try {
             const res = await axios.post(
-                'http://localhost/eventticketing/backend/controllers/RegistrationController.php?action=register',
-                { event_id: id, user_id: user.id }
+                'http://localhost/eventticketing/backend/api/tickets/book',
+                { event_id: id },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
 
             if (res.data.success) {
@@ -90,13 +92,11 @@ function EventDetail() {
 
     return (
         <div className="detail-container">
-
             <button className="detail-back" onClick={() => navigate('/home')}>
                 ← Back to Events
             </button>
 
             <div className="detail-card">
-
                 <div className="detail-top">
                     <div className="detail-badges">
                         <span className="detail-category">

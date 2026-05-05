@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2026 at 07:01 AM
+-- Generation Time: May 05, 2026 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,6 +70,13 @@ CREATE TABLE `events` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `host_id`, `category_id`, `title`, `description`, `cover_image_url`, `location`, `event_url`, `start_datetime`, `end_datetime`, `capacity`, `is_paid`, `ticket_price`, `status`, `created_at`) VALUES
+(9, 5, 1, 'Coffee Shop Meeting', 'Meeting @ Nomad coffee shop to discuss the final presentation / defense on May 15-16 on our subject Backend and Frontend', NULL, '@Nomad Cafe SBMA', NULL, '2026-05-09 14:00:00', '2026-05-09 16:00:00', 5, 0, 0.00, 'published', '2026-05-05 05:25:04');
+
 -- --------------------------------------------------------
 
 --
@@ -83,8 +90,18 @@ CREATE TABLE `registrations` (
   `status` enum('registered','cancelled','attended') DEFAULT 'registered',
   `ticket_code` varchar(100) DEFAULT NULL,
   `paid` tinyint(1) DEFAULT 0,
-  `registered_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `registered_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ticket_encrypted` varchar(500) DEFAULT NULL,
+  `ticket_iv` varchar(100) DEFAULT NULL,
+  `ticket_tag` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `registrations`
+--
+
+INSERT INTO `registrations` (`id`, `event_id`, `user_id`, `status`, `ticket_code`, `paid`, `registered_at`, `ticket_encrypted`, `ticket_iv`, `ticket_tag`) VALUES
+(8, 9, 5, 'registered', 'TKT-69F97F31E9A06', 0, '2026-05-05 05:25:05', 'EOj5IZQtbJZzwoL0TJi9yDw=', 'WAcTiHJghxxxp/P9', '+fZXc4B1qrGVC4NFkQQ7Fg==');
 
 -- --------------------------------------------------------
 
@@ -100,15 +117,24 @@ CREATE TABLE `users` (
   `avatar_url` varchar(255) DEFAULT NULL,
   `bio` text DEFAULT NULL,
   `role` enum('user','admin') DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `email_encrypted` varchar(500) DEFAULT NULL,
+  `email_iv` varchar(100) DEFAULT NULL,
+  `email_tag` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `phone_encrypted` varchar(500) DEFAULT NULL,
+  `phone_iv` varchar(100) DEFAULT NULL,
+  `phone_tag` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `avatar_url`, `bio`, `role`, `created_at`) VALUES
-(5, 'Allynson M. Ibanez', 'allynson@gmail.com', '$2y$10$6o6Zcs7ClD3rAZujQpXtMeY7lpA6QblkIdMj140mQPM9TjT6PN6NS', NULL, NULL, 'user', '2026-04-22 10:25:31');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `avatar_url`, `bio`, `role`, `created_at`, `email_encrypted`, `email_iv`, `email_tag`, `phone`, `phone_encrypted`, `phone_iv`, `phone_tag`) VALUES
+(5, 'Allynson M. Ibanez', 'allynson@gmail.com', '$2y$10$6o6Zcs7ClD3rAZujQpXtMeY7lpA6QblkIdMj140mQPM9TjT6PN6NS', NULL, NULL, 'user', '2026-04-22 10:25:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'Vincent Theodore Batallones', 'vincent@gmail.com', '$2y$10$O76CxdztT/N.4uv455fstuEI.qXgCzZurJJIru2qD4aPEUtUQGg3S', NULL, NULL, 'user', '2026-04-24 14:06:56', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'Markuz Diosomito', 'markuz@gmail.com', '$2y$10$kVoDWaWB2ur6Kbl.RcR9TO1./TThb9NWkOaBKhmvA6GO8thtQP1A2', NULL, NULL, 'user', '2026-04-24 14:08:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -159,19 +185,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import '../css/MyEvents.css';
 
 function MyEvents() {
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,10 +21,11 @@ function MyEvents() {
     const fetchMyEvents = async () => {
         try {
             const res = await axios.get(
-                `http://localhost/eventticketing/backend/controllers/RegistrationController.php?action=my_events&user_id=${user.id}`
+                `http://localhost/eventticketing/backend/api/tickets/user/${user.id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             if (res.data.success) {
-                setEvents(res.data.events);
+                setEvents(res.data.tickets);
             }
         } catch (err) {
             console.error('Failed to fetch my events', err);
@@ -38,8 +39,9 @@ function MyEvents() {
 
         try {
             const res = await axios.post(
-                'http://localhost/eventticketing/backend/controllers/RegistrationController.php?action=cancel',
-                { event_id, user_id: user.id }
+                'http://localhost/eventticketing/backend/api/tickets/cancel',
+                { event_id },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             if (res.data.success) {
                 setEvents(prev => prev.filter(e => e.event_id !== event_id));

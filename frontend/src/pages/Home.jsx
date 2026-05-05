@@ -17,7 +17,7 @@ function Home() {
     const fetchEvents = async () => {
         try {
             const res = await axios.get(
-                'http://localhost/eventticketing/backend/controllers/EventController.php?action=all'
+                'http://localhost/eventticketing/backend/api/events'
             );
             if (res.data.success) {
                 setEvents(res.data.events);

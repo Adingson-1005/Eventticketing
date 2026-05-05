@@ -1,131 +1,111 @@
 <?php
-require_once '../config/database.php';
+require_once __DIR__ . '/../config/jwt.php';
 
-$method = $_SERVER['REQUEST_METHOD'];
-$action = $_GET['action'] ?? '';
+class EventController {
+    private $conn;
 
-switch($action) {
-    case 'create':
-        createEvent($conn);
-        break;
-    case 'all':
-        getAllEvents($conn);
-        break;
-    case 'single':
-        getSingleEvent($conn);
-        break;
-    case 'delete':
-        deleteEvent($conn);
-        break;
-    default:
-        echo json_encode(["success" => false, "message" => "Invalid action"]);
-}
-
-// ─── CREATE EVENT ─────────────────────────────────────
-function createEvent($conn) {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    $host_id        = $data['host_id'] ?? '';
-    $title          = trim($data['title'] ?? '');
-    $description    = trim($data['description'] ?? '');
-    $location       = trim($data['location'] ?? '');
-    $start_datetime = $data['start_datetime'] ?? '';
-    $end_datetime   = $data['end_datetime'] ?? '';
-    $capacity       = $data['capacity'] ?? null;
-    $is_paid        = $data['is_paid'] ?? false;
-    $ticket_price   = $data['ticket_price'] ?? 0.00;
-    $category_id    = $data['category_id'] ?? null;
-
-    if (!$host_id || !$title || !$start_datetime) {
-        echo json_encode(["success" => false, "message" => "Host, title and start date are required"]);
-        return;
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
-    $stmt = $conn->prepare("INSERT INTO events 
-        (host_id, category_id, title, description, location, start_datetime, end_datetime, capacity, is_paid, ticket_price) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    // GET /api/events
+    public function getAll() {
+        $sql = "SELECT e.*, u.name AS host_name, c.name AS category_name,
+                COUNT(r.id) AS registered_count
+                FROM events e
+                JOIN users u ON e.host_id = u.id
+                LEFT JOIN categories c ON e.category_id = c.id
+                LEFT JOIN registrations r ON e.id = r.event_id AND r.status = 'registered'
+                WHERE e.status = 'published'
+                GROUP BY e.id
+                ORDER BY e.start_datetime ASC";
 
-    $stmt->bind_param(
-        "iisssssiid",
-        $host_id, $category_id, $title, $description,
-        $location, $start_datetime, $end_datetime,
-        $capacity, $is_paid, $ticket_price
-    );
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $events = $stmt->fetchAll();
 
-    if ($stmt->execute()) {
-        echo json_encode([
-            "success" => true,
-            "message" => "Event created successfully",
-            "event_id" => $conn->insert_id
+        http_response_code(200);
+        echo json_encode(['success' => true, 'events' => $events]);
+    }
+
+    // GET /api/events/{id}
+    public function getOne($id) {
+        $stmt = $this->conn->prepare("
+            SELECT e.*, u.name AS host_name, c.name AS category_name,
+            COUNT(r.id) AS registered_count
+            FROM events e
+            JOIN users u ON e.host_id = u.id
+            LEFT JOIN categories c ON e.category_id = c.id
+            LEFT JOIN registrations r ON e.id = r.event_id AND r.status = 'registered'
+            WHERE e.id = ?
+            GROUP BY e.id
+        ");
+        $stmt->execute([$id]);
+        $event = $stmt->fetch();
+
+        if (!$event) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Event not found']);
+            return;
+        }
+
+        http_response_code(200);
+        echo json_encode(['success' => true, 'event' => $event]);
+    }
+
+    // POST /api/events (requires auth)
+    public function create() {
+        $user = JWT::getFromHeader();
+        if (!$user) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $title          = trim($data['title'] ?? '');
+        $description    = trim($data['description'] ?? '');
+        $location       = trim($data['location'] ?? '');
+        $start_datetime = $data['start_datetime'] ?? '';
+        $end_datetime   = $data['end_datetime'] ?? null;
+        $capacity       = $data['capacity'] ?? null;
+        $is_paid        = $data['is_paid'] ?? false;
+        $ticket_price   = $data['ticket_price'] ?? 0.00;
+        $category_id    = $data['category_id'] ?? null;
+
+        if (!$title || !$start_datetime) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'Title and start date are required']);
+            return;
+        }
+
+        $stmt = $this->conn->prepare("
+            INSERT INTO events 
+            (host_id, category_id, title, description, location, 
+            start_datetime, end_datetime, capacity, is_paid, ticket_price) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+
+        $stmt->execute([
+            $user['user_id'],
+            $category_id,
+            $title,
+            $description,
+            $location,
+            $start_datetime,
+            $end_datetime,
+            $capacity,
+            $is_paid ? 1 : 0,
+            $ticket_price
         ]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Failed to create event"]);
-    }
-}
 
-// ─── GET ALL EVENTS ───────────────────────────────────
-function getAllEvents($conn) {
-    $sql = "SELECT e.*, u.name AS host_name, c.name AS category_name
-            FROM events e
-            JOIN users u ON e.host_id = u.id
-            LEFT JOIN categories c ON e.category_id = c.id
-            WHERE e.status = 'published'
-            ORDER BY e.start_datetime ASC";
-
-    $result = $conn->query($sql);
-    $events = [];
-
-    while ($row = $result->fetch_assoc()) {
-        $events[] = $row;
-    }
-
-    echo json_encode(["success" => true, "events" => $events]);
-}
-
-// ─── GET SINGLE EVENT ─────────────────────────────────
-function getSingleEvent($conn) {
-    $id = $_GET['id'] ?? '';
-
-    if (!$id) {
-        echo json_encode(["success" => false, "message" => "Event ID is required"]);
-        return;
-    }
-
-    $stmt = $conn->prepare("SELECT e.*, u.name AS host_name, c.name AS category_name
-            FROM events e
-            JOIN users u ON e.host_id = u.id
-            LEFT JOIN categories c ON e.category_id = c.id
-            WHERE e.id = ?");
-
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows === 0) {
-        echo json_encode(["success" => false, "message" => "Event not found"]);
-        return;
-    }
-
-    echo json_encode(["success" => true, "event" => $result->fetch_assoc()]);
-}
-
-// ─── DELETE EVENT ─────────────────────────────────────
-function deleteEvent($conn) {
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['id'] ?? '';
-
-    if (!$id) {
-        echo json_encode(["success" => false, "message" => "Event ID is required"]);
-        return;
-    }
-
-    $stmt = $conn->prepare("DELETE FROM events WHERE id = ?");
-    $stmt->bind_param("i", $id);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Event deleted successfully"]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Failed to delete event"]);
+        http_response_code(201);
+        echo json_encode([
+            'success'  => true,
+            'message'  => 'Event created successfully',
+            'event_id' => $this->conn->lastInsertId()
+        ]);
     }
 }
 ?>

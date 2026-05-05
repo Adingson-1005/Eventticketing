@@ -21,12 +21,12 @@ function Login() {
 
         try {
             const res = await axios.post(
-                'http://localhost/eventticketing/backend/controllers/AuthController.php?action=login',
+                'http://localhost/eventticketing/backend/api/auth/login',
                 { email, password }
             );
 
             if (res.data.success) {
-                login(res.data.user);
+                login(res.data.user, res.data.token);
                 navigate('/home');
             } else {
                 setError(res.data.message);

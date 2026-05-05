@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import '../css/CreateEvent.css';
 
 function CreateEvent() {
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -49,8 +49,9 @@ function CreateEvent() {
 
         try {
             const res = await axios.post(
-                'http://localhost/eventticketing/backend/controllers/EventController.php?action=create',
-                { ...formData, host_id: user.id }
+                'http://localhost/eventticketing/backend/api/events',
+                { ...formData },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
 
             if (res.data.success) {
@@ -79,7 +80,6 @@ function CreateEvent() {
                 {error && <div className="create-error">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="create-form">
-
                     <div className="form-group">
                         <label>Event Title *</label>
                         <input
@@ -140,7 +140,6 @@ function CreateEvent() {
                                 required
                             />
                         </div>
-
                         <div className="form-group">
                             <label>End Date & Time</label>
                             <input
@@ -206,7 +205,6 @@ function CreateEvent() {
                             {loading ? 'Publishing...' : 'Publish Event 🚀'}
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>

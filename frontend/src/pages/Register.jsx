@@ -21,7 +21,7 @@ function Register() {
 
         try {
             const res = await axios.post(
-                'http://localhost/eventticketing/backend/controllers/AuthController.php?action=register',
+                'http://localhost/eventticketing/backend/api/auth/register',
                 { name, email, password }
             );
 
