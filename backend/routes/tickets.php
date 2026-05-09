@@ -8,8 +8,11 @@ switch ($action) {
         if ($method === 'POST') $ticketController->book();
         else httpError(405, 'Method not allowed');
         break;
+    case 'cancel':
+        if ($method === 'POST') $ticketController->cancel();
+        else httpError(405, 'Method not allowed');
+        break;
     case 'user':
-        // GET /api/tickets/user/{user_id}
         if ($method === 'GET') $ticketController->getUserTickets($id);
         else httpError(405, 'Method not allowed');
         break;

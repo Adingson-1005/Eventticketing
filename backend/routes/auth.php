@@ -19,10 +19,4 @@ switch ($action) {
     default:
         httpError(404, 'Auth route not found');
 }
-
-function httpError($code, $message) {
-    http_response_code($code);
-    echo json_encode(['success' => false, 'message' => $message]);
-    exit();
-}
 ?>
