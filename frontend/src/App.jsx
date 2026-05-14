@@ -10,6 +10,7 @@ import CreateEvent from './pages/CreateEvent';
 import MyEvents from './pages/MyEvents';
 import Navbar from './components/Navbar';
 import { PrivateRoute, PublicRoute } from './components/ProtectedRoute';
+import Profile from './pages/Profile';
 
 function Layout({ children }) {
     return (
@@ -59,6 +60,12 @@ function App() {
                 <Route path="/my-events" element={
                     <PrivateRoute>
                         <Layout><MyEvents /></Layout>
+                    </PrivateRoute>
+                } />
+
+                <Route path="/profile" element={
+                    <PrivateRoute>
+                        <Layout><Profile /></Layout>
                     </PrivateRoute>
                 } />
             </Routes>

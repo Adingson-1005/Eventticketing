@@ -12,4 +12,4 @@ switch ($action) {
     default:
         httpError(404, 'User route not found');
 }
-?>
+?> 

@@ -53,7 +53,7 @@ class EventController {
         echo json_encode(['success' => true, 'event' => $event]);
     }
 
-    // POST /api/events (requires auth)
+    // POST /api/events
     public function create() {
         $user = JWT::getFromHeader();
         if (!$user) {
@@ -88,16 +88,9 @@ class EventController {
         ");
 
         $stmt->execute([
-            $user['user_id'],
-            $category_id,
-            $title,
-            $description,
-            $location,
-            $start_datetime,
-            $end_datetime,
-            $capacity,
-            $is_paid ? 1 : 0,
-            $ticket_price
+            $user['user_id'], $category_id, $title, $description,
+            $location, $start_datetime, $end_datetime,
+            $capacity, $is_paid ? 1 : 0, $ticket_price
         ]);
 
         http_response_code(201);
@@ -106,6 +99,72 @@ class EventController {
             'message'  => 'Event created successfully',
             'event_id' => $this->conn->lastInsertId()
         ]);
+    }
+
+    // DELETE /api/events/{id}
+    public function delete($id) {
+        $user = JWT::getFromHeader();
+        if (!$user) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        // Check event exists and belongs to this user
+        $check = $this->conn->prepare("SELECT host_id FROM events WHERE id = ?");
+        $check->execute([$id]);
+        $event = $check->fetch();
+
+        if (!$event) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Event not found']);
+            return;
+        }
+
+        if ($event['host_id'] != $user['user_id'] && $user['role'] !== 'admin') {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'message' => 'You can only delete your own events']);
+            return;
+        }
+
+        // Cancel all registrations first
+        $cancelReg = $this->conn->prepare("
+            UPDATE registrations SET status = 'cancelled' WHERE event_id = ?
+        ");
+        $cancelReg->execute([$id]);
+
+        // Delete the event
+        $stmt = $this->conn->prepare("DELETE FROM events WHERE id = ?");
+        $stmt->execute([$id]);
+
+        http_response_code(200);
+        echo json_encode(['success' => true, 'message' => 'Event deleted successfully']);
+    }
+
+    // GET /api/events/my — get events hosted by logged in user
+    public function getMyHostedEvents() {
+        $user = JWT::getFromHeader();
+        if (!$user) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        $stmt = $this->conn->prepare("
+            SELECT e.*, c.name AS category_name,
+            COUNT(r.id) AS registered_count
+            FROM events e
+            LEFT JOIN categories c ON e.category_id = c.id
+            LEFT JOIN registrations r ON e.id = r.event_id AND r.status = 'registered'
+            WHERE e.host_id = ?
+            GROUP BY e.id
+            ORDER BY e.start_datetime DESC
+        ");
+        $stmt->execute([$user['user_id']]);
+        $events = $stmt->fetchAll();
+
+        http_response_code(200);
+        echo json_encode(['success' => true, 'events' => $events]);
     }
 }
 ?>

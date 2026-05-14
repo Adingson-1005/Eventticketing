@@ -9,9 +9,15 @@ switch ($action) {
         else if ($method === 'POST') $eventController->create();
         else httpError(405, 'Method not allowed');
         break;
+    case 'my':
+        // GET /api/events/my
+        if ($method === 'GET') $eventController->getMyHostedEvents();
+        else httpError(405, 'Method not allowed');
+        break;
     default:
         // /api/events/{id}
         if ($method === 'GET') $eventController->getOne($action);
+        else if ($method === 'DELETE') $eventController->delete($action);
         else httpError(405, 'Method not allowed');
         break;
 }
