@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.home-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.home-subtitle {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.home-loading {
+    text-align: center;
+    padding: 60px;
+    font-size: 18px;
+    color: #aaa;
+    background: linear-gradient(180deg, #010311 0%, #000000 21%);
+    min-height: 100vh;
+}
+
+.home-empty {
+    text-align: center;
+    padding: 60px;
+    color: #aaa;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.event-card {
+    background: #1a1a2e;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #2d2d5e;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.event-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.event-category {
+    background-color: rgba(255,255,255,0.1);
+    color: #a0c4ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.event-type {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.event-type.free {
+    background-color: #1a3a2a;
+    color: #4caf82;
+}
+
+.event-type.paid {
+    background-color: #3a2a10;
+    color: #ffb74d;
+}
+
+.event-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.event-description {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.event-detail {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+}
+
+.event-card-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #262323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.event-card-btn:hover {
+    background-color: #2d2d5e;
+}
+
+.home-create-btn {
+    margin-top: 16px;
+    padding: 12px 28px;
+    background-color: #262323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
