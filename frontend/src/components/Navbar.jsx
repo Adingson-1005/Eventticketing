@@ -72,7 +72,6 @@ function Navbar() {
                                         📊 Admin Dashboard
                                     </button>
                                 )}
-
                                 <div className="burger-divider" />
 
                                 <button

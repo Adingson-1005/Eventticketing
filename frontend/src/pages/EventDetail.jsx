@@ -103,7 +103,6 @@ function EventDetail() {
             alert('Failed to delete event');
         }
     };
-
     if (loading) return <div className="detail-loading">Loading event...</div>;
     if (!event) return <div className="detail-loading">Event not found.</div>;
 
@@ -217,7 +216,6 @@ function EventDetail() {
                                     🗑️ Delete Event
                                 </button>
                             )}
-
                             {!user && (
                                 <p className="rsvp-login-hint">
                                     <span onClick={() => navigate('/login')}>Login</span>
