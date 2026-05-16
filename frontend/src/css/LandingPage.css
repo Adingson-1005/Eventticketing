@@ -21,11 +21,22 @@
 }
 
 .landing-welcome {
-    font-size: 1.5vw;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 600;
     color: #aaa;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.landing-welcome-logo {
+    width: 200px;
+    height: auto;
+    vertical-align: middle;
+    position: relative;
+    top: -5px;
 }
 
 .landing-title {

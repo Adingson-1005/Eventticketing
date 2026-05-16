@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../css/Navbar.css';
+import logo from "../assets/EventGO-Logo2.png";
+import text from "../assets/EventGO-Logo4.png";
 
 function Navbar() {
     const { user, logout } = useAuth();
@@ -16,8 +18,11 @@ function Navbar() {
 
     return (
         <nav className="navbar">
-            <Link to="/home" className="navbar-brand">🎟 EventTicket</Link>
-
+            <Link to="/home" className="navbar-brand">
+                <img src={logo} alt="EventGO Logo" className="navbar-logo" />
+                <img src={text} alt="EventGO Text" className="navbar-text" />
+            </Link>
+            
             <div className="navbar-links">
                 <Link to="/home" className="navbar-link">Browse Events</Link>
                 <Link to="/my-events" className="navbar-link">My Events</Link>

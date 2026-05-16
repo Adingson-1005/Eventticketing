@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/LandingPage.css';
 import landingBg from '../assets/landing-bg.png';
+import logoText from '../assets/EventGO-Logo3.png';
 
 function LandingPage() {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ function LandingPage() {
 
             {/* Left content */}
             <div className="landing-left">
-                <p className="landing-welcome">Welcome to ----------</p>
+                <p className="landing-welcome"> Welcome to <img src={logoText} alt="EventGO" className="landing-welcome-logo" /> </p>
                 <h1 className="landing-title">
                     A Smarter Way to Create and Attend Events.
                 </h1>
