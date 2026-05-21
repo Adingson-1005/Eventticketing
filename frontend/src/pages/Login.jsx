@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { Hand, EyeOff, Eye } from 'lucide-react';
 import '../css/Login.css';
 
 function Login() {
@@ -41,7 +42,7 @@ function Login() {
     return (
         <div className="auth-container">
             <div className="auth-card">
-                <h2 className="auth-title">Login 👋</h2>
+                <h2 className="auth-title">Login <Hand size={24} /></h2>
                 <p className="auth-subtitle">Welcome back!</p>
 
                 {error && <div className="auth-error">{error}</div>}
@@ -73,7 +74,7 @@ function Login() {
                                 className="password-toggle"
                                 onClick={() => setShowPassword(!showPassword)}
                             >
-                                {showPassword ? '🙈' : '👁️'}
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
                     </div>

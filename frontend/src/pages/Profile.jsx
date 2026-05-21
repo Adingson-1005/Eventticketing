@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { Crown, User, Pencil, FileText, Phone, Mail, CheckCircle } from 'lucide-react';
 import '../css/Profile.css';
 
 function Profile() {
@@ -54,7 +55,7 @@ function Profile() {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             if (res.data.success) {
-                setMessage('Profile updated successfully! ✅');
+                setMessage('Profile updated successfully!');
                 setMessageType('success');
                 setEditing(false);
                 // Update user in context
@@ -85,14 +86,14 @@ function Profile() {
                         <h1 className="profile-name">{profile?.name}</h1>
                         <p className="profile-email">{profile?.email}</p>
                         <span className={`profile-role ${profile?.role}`}>
-                            {profile?.role === 'admin' ? '👑 Admin' : '👤 User'}
+                            {profile?.role === 'admin' ? <><Crown size={14} /> Admin</> : <><User size={14} /> User</>}
                         </span>
                     </div>
                     <button
                         className="profile-edit-btn"
                         onClick={() => { setEditing(!editing); setMessage(''); }}
                     >
-                        {editing ? 'Cancel' : '✏️ Edit Profile'}
+                        {editing ? 'Cancel' : <><Pencil size={14} /> Edit Profile</>}
                     </button>
                 </div>
 
@@ -163,15 +164,15 @@ function Profile() {
                 ) : (
                     <div className="profile-info">
                         <div className="profile-info-item">
-                            <span className="info-label">📝 Bio</span>
+                            <span className="info-label"><FileText size={14} /> Bio</span>
                             <span className="info-value">{profile?.bio || 'No bio yet.'}</span>
                         </div>
                         <div className="profile-info-item">
-                            <span className="info-label">📱 Phone</span>
+                            <span className="info-label"><Phone size={14} /> Phone</span>
                             <span className="info-value">{profile?.phone || 'Not provided.'}</span>
                         </div>
                         <div className="profile-info-item">
-                            <span className="info-label">📧 Email</span>
+                            <span className="info-label"><Mail size={14} /> Email</span>
                             <span className="info-value">{profile?.email}</span>
                         </div>
                     </div>

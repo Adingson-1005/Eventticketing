@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { Ticket, MapPin, Clock, TicketCheck, Users } from 'lucide-react';
 import '../css/MyEvents.css';
 
 function MyEvents() {
@@ -74,7 +75,7 @@ function MyEvents() {
     return (
         <div className="myevents-container">
             <div className="myevents-header">
-                <h1 className="myevents-title">My Events 🎟</h1>
+                <h1 className="myevents-title">My Events <Ticket size={28} /></h1>
                 <p className="myevents-subtitle">Manage your registrations and hosted events</p>
             </div>
 
@@ -121,9 +122,9 @@ function MyEvents() {
                                     <div className="myevents-card-body">
                                         <h3 className="myevents-event-title">{event.title}</h3>
                                         <div className="myevents-meta">
-                                            <span>📍 {event.location || 'Online'}</span>
-                                            <span>🕐 {new Date(event.start_datetime).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}</span>
-                                            <span>🎫 {event.ticket_code}</span>
+                                            <span><MapPin size={14} /> {event.location || 'Online'}</span>
+                                            <span><Clock size={14} /> {new Date(event.start_datetime).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}</span>
+                                            <span><TicketCheck size={14} /> {event.ticket_code}</span>
                                         </div>
                                     </div>
                                     <div className="myevents-card-right">
@@ -170,9 +171,9 @@ function MyEvents() {
                                     <div className="myevents-card-body">
                                         <h3 className="myevents-event-title">{event.title}</h3>
                                         <div className="myevents-meta">
-                                            <span>📍 {event.location || 'Online'}</span>
-                                            <span>🕐 {new Date(event.start_datetime).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}</span>
-                                            <span>👥 {event.registered_count} registered</span>
+                                            <span><MapPin size={14} /> {event.location || 'Online'}</span>
+                                            <span><Clock size={14} /> {new Date(event.start_datetime).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}</span>
+                                            <span><Users size={14} /> {event.registered_count} registered</span>
                                             <span className={`hosted-status ${event.status}`}>{event.status}</span>
                                         </div>
                                     </div>

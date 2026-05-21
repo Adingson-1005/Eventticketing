@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { BarChart3, Calendar, Users, TicketCheck, DollarSign, Clock, Rocket, MapPin, FolderOpen, ClipboardList, AlertTriangle } from 'lucide-react';
 import '../css/Dashboard.css';
 
 function Dashboard() {
@@ -102,7 +103,7 @@ function Dashboard() {
     if (error) {
         return (
             <div className="dashboard-error">
-                <p>⚠️ {error}</p>
+                <p><AlertTriangle size={16} /> {error}</p>
                 <button className="dashboard-error-btn" onClick={fetchDashboard}>
                     Try Again
                 </button>
@@ -118,7 +119,7 @@ function Dashboard() {
         <div className="dashboard-container">
             {/* Header */}
             <div className="dashboard-header">
-                <h1 className="dashboard-title">📊 Admin Dashboard</h1>
+                <h1 className="dashboard-title"><BarChart3 size={28} /> Admin Dashboard</h1>
                 <p className="dashboard-subtitle">
                     Overview of your event ticketing platform
                 </p>
@@ -127,22 +128,22 @@ function Dashboard() {
             {/* Stat Cards */}
             <div className="stats-grid">
                 <div className="stat-card events">
-                    <span className="stat-icon">📅</span>
+                    <span className="stat-icon"><Calendar size={24} /></span>
                     <div className="stat-value">{data.total_events}</div>
                     <div className="stat-label">Total Events</div>
                 </div>
                 <div className="stat-card users">
-                    <span className="stat-icon">👥</span>
+                    <span className="stat-icon"><Users size={24} /></span>
                     <div className="stat-value">{data.total_users}</div>
                     <div className="stat-label">Total Users</div>
                 </div>
                 <div className="stat-card tickets">
-                    <span className="stat-icon">🎫</span>
+                    <span className="stat-icon"><TicketCheck size={24} /></span>
                     <div className="stat-value">{data.total_registrations}</div>
                     <div className="stat-label">Tickets Sold</div>
                 </div>
                 <div className="stat-card revenue">
-                    <span className="stat-icon">💰</span>
+                    <span className="stat-icon"><DollarSign size={24} /></span>
                     <div className="stat-value">
                         ₱{Number(data.total_revenue).toLocaleString('en-PH', {
                             minimumFractionDigits: 2,
@@ -158,7 +159,7 @@ function Dashboard() {
                 {/* Recent Registrations */}
                 <div className="dashboard-panel">
                     <div className="panel-header">
-                        <h2 className="panel-title">🕐 Recent Registrations</h2>
+                        <h2 className="panel-title"><Clock size={18} /> Recent Registrations</h2>
                         <span className="panel-badge">{data.recent_registrations.length}</span>
                     </div>
                     {data.recent_registrations.length === 0 ? (
@@ -187,7 +188,7 @@ function Dashboard() {
                 {/* Upcoming Events */}
                 <div className="dashboard-panel">
                     <div className="panel-header">
-                        <h2 className="panel-title">🚀 Upcoming Events</h2>
+                        <h2 className="panel-title"><Rocket size={18} /> Upcoming Events</h2>
                         <span className="panel-badge">{data.upcoming_events.length}</span>
                     </div>
                     {data.upcoming_events.length === 0 ? (
@@ -209,11 +210,11 @@ function Dashboard() {
                                     <div className="upcoming-info">
                                         <p className="upcoming-title">{event.title}</p>
                                         <p className="upcoming-meta">
-                                            📍 {event.location || 'Online'} · {formatTime(event.start_datetime)}
+                                            <MapPin size={12} /> {event.location || 'Online'} · {formatTime(event.start_datetime)}
                                         </p>
                                     </div>
                                     <span className="upcoming-attendees">
-                                        👥 {event.registered_count}
+                                        <Users size={14} /> {event.registered_count}
                                     </span>
                                 </li>
                             ))}
@@ -224,7 +225,7 @@ function Dashboard() {
                 {/* Category Breakdown */}
                 <div className="dashboard-panel">
                     <div className="panel-header">
-                        <h2 className="panel-title">📂 Events by Category</h2>
+                        <h2 className="panel-title"><FolderOpen size={18} /> Events by Category</h2>
                     </div>
                     <div className="category-list">
                         {data.category_counts.map((cat, i) => (
@@ -246,7 +247,7 @@ function Dashboard() {
             {/* Events Table (full width) */}
             <div className="dashboard-panel full-width">
                 <div className="panel-header">
-                    <h2 className="panel-title">📋 All Events</h2>
+                    <h2 className="panel-title"><ClipboardList size={18} /> All Events</h2>
                     <span className="panel-badge">{data.events.length} events</span>
                 </div>
                 <div className="events-table-wrapper">

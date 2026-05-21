@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { User, BarChart3, LogOut } from 'lucide-react';
 import '../css/Navbar.css';
 import logo from "../assets/EventGO-Logo2.png";
 import text from "../assets/EventGO-Logo4.png";
@@ -66,7 +67,7 @@ function Navbar() {
                                     className="burger-menu-item"
                                     onClick={() => { navigate('/profile'); setMenuOpen(false); }}
                                 >
-                                    👤 Profile
+                                    <User size={16} /> Profile
                                 </button>
 
                                 {user.role === 'admin' && (
@@ -74,7 +75,7 @@ function Navbar() {
                                         className="burger-menu-item"
                                         onClick={() => { navigate('/dashboard'); setMenuOpen(false); }}
                                     >
-                                        📊 Admin Dashboard
+                                        <BarChart3 size={16} /> Admin Dashboard
                                     </button>
                                 )}
                                 <div className="burger-divider" />
@@ -83,7 +84,7 @@ function Navbar() {
                                     className="burger-menu-item logout"
                                     onClick={handleLogout}
                                 >
-                                    🚪 Logout
+                                    <LogOut size={16} /> Logout
                                 </button>
                             </div>
                         )}

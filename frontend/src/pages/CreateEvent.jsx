@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { PartyPopper, Rocket } from 'lucide-react';
 import '../css/CreateEvent.css';
 
 function CreateEvent() {
@@ -74,7 +75,7 @@ function CreateEvent() {
     return (
         <div className="create-container">
             <div className="create-card">
-                <h2 className="create-title">Create a New Event 🎉</h2>
+                <h2 className="create-title">Create a New Event <PartyPopper size={24} /></h2>
                 <p className="create-subtitle">Fill in the details below to publish your event</p>
 
                 {error && <div className="create-error">{error}</div>}
@@ -202,7 +203,7 @@ function CreateEvent() {
                             className="create-btn-submit"
                             disabled={loading}
                         >
-                            {loading ? 'Publishing...' : 'Publish Event 🚀'}
+                            {loading ? 'Publishing...' : <><span>Publish Event</span> <Rocket size={16} /></>}
                         </button>
                     </div>
                 </form>

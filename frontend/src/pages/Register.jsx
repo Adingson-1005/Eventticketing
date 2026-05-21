@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Ticket, EyeOff, Eye } from 'lucide-react';
 import '../css/Register.css';
 import '../css/Login.css';
 
@@ -40,7 +41,7 @@ function Register() {
     return (
         <div className="auth-container">
             <div className="auth-card">
-                <h2 className="auth-title">Create Account 🎟</h2>
+                <h2 className="auth-title">Create Account <Ticket size={24} /></h2>
                 <p className="auth-subtitle">Join EventTicket and start exploring events!</p>
 
                 {error && <div className="auth-error">{error}</div>}
@@ -83,7 +84,7 @@ function Register() {
                                 className="password-toggle"
                                 onClick={() => setShowPassword(!showPassword)}
                             >
-                                {showPassword ? '🙈' : '👁️'}
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
                     </div>

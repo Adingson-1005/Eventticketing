@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { PartyPopper, MapPin, Calendar, Clock, User, Ticket, ArrowRight } from 'lucide-react';
 import '../css/Home.css';
 
 function Home() {
@@ -34,7 +35,7 @@ function Home() {
     return (
         <div className="home-container">
             <div className="home-header">
-                <h1 className="home-title">Upcoming Events 🎉</h1>
+                <h1 className="home-title">Upcoming Events <PartyPopper size={28} /></h1>
                 <p className="home-subtitle">
                     {user ? `Welcome back, ${user.name}!` : 'Browse and register for events'}
                 </p>
@@ -79,32 +80,32 @@ function Home() {
 
                             <div className="event-details">
                                 <p className="event-detail">
-                                    📍 {event.location || 'Online'}
+                                    <MapPin size={14} /> {event.location || 'Online'}
                                 </p>
                                 <p className="event-detail">
-                                    📅 {new Date(event.start_datetime).toLocaleDateString('en-PH', {
+                                    <Calendar size={14} /> {new Date(event.start_datetime).toLocaleDateString('en-PH', {
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric'
                                     })}
                                 </p>
                                 <p className="event-detail">
-                                    🕐 {new Date(event.start_datetime).toLocaleTimeString('en-PH', {
+                                    <Clock size={14} /> {new Date(event.start_datetime).toLocaleTimeString('en-PH', {
                                         hour: '2-digit',
                                         minute: '2-digit'
                                     })}
                                 </p>
                                 <p className="event-detail">
-                                    👤 Hosted by {event.host_name}
+                                    <User size={14} /> Hosted by {event.host_name}
                                 </p>
                                 {event.capacity && (
                                     <p className="event-detail">
-                                        🎟 {event.capacity} slots available
+                                        <Ticket size={14} /> {event.capacity} slots available
                                     </p>
                                 )}
                             </div>
 
-                            <button className="event-card-btn">View Event →</button>
+                            <button className="event-card-btn">View Event <ArrowRight size={14} /></button>
                         </div>
                     ))}
                 </div>

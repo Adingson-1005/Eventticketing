@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { ArrowLeft, MapPin, Calendar, Clock, Ticket, TicketCheck, Trash2, PartyPopper, Check } from 'lucide-react';
 import '../css/EventDetail.css';
 
 function EventDetail() {
@@ -72,7 +73,7 @@ function EventDetail() {
 
             if (res.data.success) {
                 setTicketCode(res.data.ticket_code);
-                setMessage('Successfully registered! 🎉');
+                setMessage('Successfully registered!');
                 setMessageType('success');
                 setAlreadyRegistered(true);
             } else {
@@ -109,7 +110,7 @@ function EventDetail() {
     return (
         <div className="detail-container">
             <button className="detail-back" onClick={() => navigate('/home')}>
-                ← Back to Events
+                <ArrowLeft size={16} /> Back to Events
             </button>
 
             <div className="detail-card">
@@ -133,11 +134,11 @@ function EventDetail() {
 
                         <div className="detail-meta">
                             <div className="detail-meta-item">
-                                <span className="meta-icon">📍</span>
+                                <span className="meta-icon"><MapPin size={16} /></span>
                                 <span>{event.location || 'Online'}</span>
                             </div>
                             <div className="detail-meta-item">
-                                <span className="meta-icon">📅</span>
+                                <span className="meta-icon"><Calendar size={16} /></span>
                                 <span>
                                     {new Date(event.start_datetime).toLocaleDateString('en-PH', {
                                         weekday: 'long',
@@ -148,7 +149,7 @@ function EventDetail() {
                                 </span>
                             </div>
                             <div className="detail-meta-item">
-                                <span className="meta-icon">🕐</span>
+                                <span className="meta-icon"><Clock size={16} /></span>
                                 <span>
                                     {new Date(event.start_datetime).toLocaleTimeString('en-PH', {
                                         hour: '2-digit',
@@ -162,7 +163,7 @@ function EventDetail() {
                             </div>
                             {event.capacity && (
                                 <div className="detail-meta-item">
-                                    <span className="meta-icon">🎟</span>
+                                    <span className="meta-icon"><Ticket size={16} /></span>
                                     <span>{event.capacity} slots available</span>
                                 </div>
                             )}
@@ -181,7 +182,7 @@ function EventDetail() {
                                     {message}
                                     {ticketCode && (
                                         <div className="ticket-code">
-                                            🎫 Ticket: <strong>{ticketCode}</strong>
+                                            <TicketCheck size={16} /> Ticket: <strong>{ticketCode}</strong>
                                         </div>
                                     )}
                                 </div>
@@ -193,7 +194,7 @@ function EventDetail() {
                                 disabled={rsvpLoading || alreadyRegistered}
                             >
                                 {rsvpLoading ? 'Registering...' :
-                                 alreadyRegistered ? 'Already Registered ✓' :
+                                 alreadyRegistered ? <><Check size={14} /> Already Registered</> :
                                  user ? 'Register for Event' : 'Login to Register'}
                             </button>
 
@@ -213,7 +214,7 @@ function EventDetail() {
                                         cursor: 'pointer' 
                                     }}
                                 >
-                                    🗑️ Delete Event
+                                    <Trash2 size={16} /> Delete Event
                                 </button>
                             )}
                             {!user && (
