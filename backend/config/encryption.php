@@ -1,17 +1,19 @@
 <?php
-// IMPORTANT: In production, store this in environment variable
-// Never hardcode in controllers
-define('ENCRYPTION_KEY', hex2bin('603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4'));
+require_once __DIR__ . '/bootstrap.php';
 
 class EncryptionUtil {
+    private static function getKey(): string {
+        return hex2bin($_ENV['ENCRYPTION_KEY']);
+    }
+
     public static function encrypt($plaintext) {
-        $iv = random_bytes(12); // 12 bytes for GCM
+        $iv  = random_bytes(12); // 12 bytes for GCM
         $tag = '';
 
         $encrypted = openssl_encrypt(
             $plaintext,
             'aes-256-gcm',
-            ENCRYPTION_KEY,
+            self::getKey(),
             OPENSSL_RAW_DATA,
             $iv,
             $tag,
@@ -34,7 +36,7 @@ class EncryptionUtil {
         $decrypted = openssl_decrypt(
             base64_decode($encrypted),
             'aes-256-gcm',
-            ENCRYPTION_KEY,
+            self::getKey(),
             OPENSSL_RAW_DATA,
             base64_decode($iv),
             base64_decode($tag)

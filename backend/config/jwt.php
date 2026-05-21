@@ -1,8 +1,15 @@
 <?php
-define('JWT_SECRET', 'eventticketing_secret_key_2026_group6');
-define('JWT_EXPIRY', 86400); // 24 hours
+require_once __DIR__ . '/bootstrap.php';
 
 class JWT {
+    private static function secret(): string {
+        return $_ENV['JWT_SECRET'];
+    }
+
+    private static function expiry(): int {
+        return (int) $_ENV['JWT_EXPIRY'];
+    }
+
     public static function generate($payload) {
         $header = base64_encode(json_encode([
             'alg' => 'HS256',
@@ -10,13 +17,13 @@ class JWT {
         ]));
 
         $payload['iat'] = time();
-        $payload['exp'] = time() + JWT_EXPIRY;
+        $payload['exp'] = time() + self::expiry();
         $payload = base64_encode(json_encode($payload));
 
         $signature = base64_encode(hash_hmac(
             'sha256',
             "$header.$payload",
-            JWT_SECRET,
+            self::secret(),
             true
         ));
 
@@ -32,14 +39,13 @@ class JWT {
         $validSig = base64_encode(hash_hmac(
             'sha256',
             "$header.$payload",
-            JWT_SECRET,
+            self::secret(),
             true
         ));
 
         if ($signature !== $validSig) return false;
 
         $data = json_decode(base64_decode($payload), true);
-
         if ($data['exp'] < time()) return false;
 
         return $data;

@@ -22,3 +22,6 @@ Thumbs.db
 # Project specific
 backend/config/database.php (sensitive config, optional)
 backend/config/jwt.php (sensitive key)
+
+# Credentials
+.env
