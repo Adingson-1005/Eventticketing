@@ -37,6 +37,7 @@ function Dashboard() {
             if (err.response?.status === 403) {
                 setError('Access denied — Admin only');
             } else {
+                console.error(err);
                 setError('Failed to load dashboard data');
             }
         } finally {

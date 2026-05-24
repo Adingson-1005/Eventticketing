@@ -1,6 +1,35 @@
 <?php
-require_once 'config/database.php';
+ob_start();
 require_once 'config/cors.php';
+require_once 'config/database.php';
+require_once 'config/encryption.php';
+
+register_shutdown_function(function() {
+    $output = ob_get_clean();
+    
+    // Check if the output is JSON
+    $data = json_decode($output, true);
+    if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+        try {
+            $encryptedData = EncryptionUtil::encrypt($output);
+            
+            // Output standard enveloped payload matching GC-LAMP structure
+            echo json_encode([
+                'a' => base64_encode(json_encode([
+                    'data' => $encryptedData['encrypted'],
+                    'iv'   => $encryptedData['iv'],
+                    'tag'  => $encryptedData['tag']
+                ]))
+            ]);
+        } catch (Exception $e) {
+            // Fallback if encryption fails
+            echo $output;
+        }
+    } else {
+        // Not a JSON response or failed to decode, output as-is
+        echo $output;
+    }
+});
 
 function httpError($code, $message) {
     http_response_code($code);
@@ -11,7 +40,7 @@ function httpError($code, $message) {
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$base = '/eventticketing/backend';
+$base = '/eventticketing/backend/'; 
 $uri = str_replace($base, '', $uri);
 $uri = trim($uri, '/');
 
