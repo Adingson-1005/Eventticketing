@@ -4,7 +4,27 @@ import './index.css';
 import App from './App.jsx';
 import { AuthProvider } from './context/AuthContext';
 import axios from 'axios';
-import { decryptPayload } from './utils/crypto';
+import { decryptPayload, encryptPayload } from './utils/crypto';
+
+// Setup Global Encryption Interceptor
+axios.interceptors.request.use(
+  async (config) => {
+    if (config.data && !(config.data instanceof FormData)) {
+      try {
+        const encrypted = await encryptPayload(config.data);
+        config.data = {
+          a: btoa(JSON.stringify(encrypted))
+        };
+      } catch (error) {
+        console.error("Global request encryption interceptor failed:", error);
+      }
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Setup Global Decryption Interceptor
 axios.interceptors.response.use(

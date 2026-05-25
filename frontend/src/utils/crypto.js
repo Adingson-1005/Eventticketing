@@ -9,6 +9,16 @@ function base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
+function arrayBufferToBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+}
+
 async function importKey(hexKey) {
     const rawKey = new Uint8Array(hexKey.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
     return await window.crypto.subtle.importKey(
@@ -16,8 +26,41 @@ async function importKey(hexKey) {
         rawKey,
         "AES-GCM",
         true,
-        ["decrypt"]
+        ["encrypt", "decrypt"]
     );
+}
+
+export async function encryptPayload(payload) {
+    try {
+        const key = await importKey(ENCRYPTION_KEY);
+        const ivBytes = window.crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for GCM
+        const encoder = new TextEncoder();
+        const plaintextBytes = encoder.encode(JSON.stringify(payload));
+
+        const encryptedBuffer = await window.crypto.subtle.encrypt(
+            {
+                name: "AES-GCM",
+                iv: ivBytes,
+                tagLength: 128
+            },
+            key,
+            plaintextBytes
+        );
+
+        // Web Crypto API appends the 16-byte authentication tag at the end of the encrypted ciphertext
+        const encryptedBytes = new Uint8Array(encryptedBuffer);
+        const ciphertextBytes = encryptedBytes.slice(0, encryptedBytes.length - 16);
+        const tagBytes = encryptedBytes.slice(encryptedBytes.length - 16);
+
+        return {
+            data: arrayBufferToBase64(ciphertextBytes),
+            iv: arrayBufferToBase64(ivBytes),
+            tag: arrayBufferToBase64(tagBytes)
+        };
+    } catch (error) {
+        console.error("Payload encryption failed:", error);
+        throw new Error("Failed to encrypt request payload");
+    }
 }
 
 export async function decryptPayload(encryptedB64, ivB64, tagB64) {
