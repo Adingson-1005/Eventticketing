@@ -11,7 +11,7 @@ class AuthController {
 
     // POST /api/auth/register
     public function register() {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(EncryptionUtil::getDecryptedInput(), true);
 
         $name     = trim($data['name'] ?? '');
         $email    = trim($data['email'] ?? '');
@@ -73,7 +73,7 @@ class AuthController {
 
     // POST /api/auth/login
     public function login() {
-        $data     = json_decode(file_get_contents("php://input"), true);
+        $data     = json_decode(EncryptionUtil::getDecryptedInput(), true);
         $email    = trim($data['email'] ?? '');
         $password = $data['password'] ?? '';
 

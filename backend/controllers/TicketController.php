@@ -18,7 +18,7 @@ class TicketController {
             return;
         }
 
-        $data     = json_decode(file_get_contents("php://input"), true);
+        $data     = json_decode(EncryptionUtil::getDecryptedInput(), true);
         $event_id = $data['event_id'] ?? '';
 
         if (!$event_id) {
@@ -96,7 +96,7 @@ class TicketController {
             return;
         }
 
-        $data     = json_decode(file_get_contents("php://input"), true);
+        $data     = json_decode(EncryptionUtil::getDecryptedInput(), true);
         $event_id = $data['event_id'] ?? '';
 
         if (!$event_id) {

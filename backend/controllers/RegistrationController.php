@@ -1,5 +1,6 @@
 <?php
 require_once '../config/database.php';
+require_once '../config/encryption.php';
 
 $action = $_GET['action'] ?? '';
 
@@ -22,7 +23,7 @@ switch($action) {
 
 // ─── REGISTER FOR EVENT ───────────────────────────────
 function registerForEvent($conn) {
-    $data     = json_decode(file_get_contents("php://input"), true);
+    $data     = json_decode(EncryptionUtil::getDecryptedInput(), true);
     $event_id = $data['event_id'] ?? '';
     $user_id  = $data['user_id'] ?? '';
 
@@ -80,7 +81,7 @@ function registerForEvent($conn) {
 
 // ─── CANCEL REGISTRATION ──────────────────────────────
 function cancelRegistration($conn) {
-    $data     = json_decode(file_get_contents("php://input"), true);
+    $data     = json_decode(EncryptionUtil::getDecryptedInput(), true);
     $event_id = $data['event_id'] ?? '';
     $user_id  = $data['user_id'] ?? '';
 

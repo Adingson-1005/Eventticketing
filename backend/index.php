@@ -13,7 +13,7 @@ register_shutdown_function(function() {
         try {
             $encryptedData = EncryptionUtil::encrypt($output);
             
-            // Output standard enveloped payload matching GC-LAMP structure
+            
             echo json_encode([
                 'a' => base64_encode(json_encode([
                     'data' => $encryptedData['encrypted'],

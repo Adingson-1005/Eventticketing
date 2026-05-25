@@ -48,5 +48,36 @@ class EncryptionUtil {
 
         return $decrypted;
     }
+
+    public static function getDecryptedInput() {
+        static $input = null;
+        if ($input !== null) {
+            return $input;
+        }
+
+        $rawInput = file_get_contents("php://input");
+        if (empty($rawInput)) {
+            $input = '';
+            return $input;
+        }
+
+        $data = json_decode($rawInput, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($data) && isset($data['a'])) {
+            try {
+                $envelopeStr = base64_decode($data['a']);
+                $envelope = json_decode($envelopeStr, true);
+                if (is_array($envelope) && isset($envelope['data'], $envelope['iv'], $envelope['tag'])) {
+                    $decrypted = self::decrypt($envelope['data'], $envelope['iv'], $envelope['tag']);
+                    $input = $decrypted;
+                    return $input;
+                }
+            } catch (Exception $e) {
+                // Decryption failed or not encrypted, fallback to raw
+            }
+        }
+
+        $input = $rawInput;
+        return $input;
+    }
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/jwt.php';
+require_once __DIR__ . '/../config/encryption.php';
 
 class EventController {
     private $conn;
@@ -62,7 +63,7 @@ class EventController {
             return;
         }
 
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(EncryptionUtil::getDecryptedInput(), true);
 
         $title          = trim($data['title'] ?? '');
         $description    = trim($data['description'] ?? '');

@@ -88,7 +88,7 @@ class UserController {
             return;
         }
 
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = json_decode(EncryptionUtil::getDecryptedInput(), true);
 
         $name   = trim($data['name'] ?? '');
         $bio    = trim($data['bio'] ?? '');
